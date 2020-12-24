@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %} {% for product in products %}
+<div>
+  {{product.title}} {% if product.content %}
+  <p>{{product.content}}</p>
+  {% else %}
+  <p>This product is coming soon</p>
+
+  {% endif %}
+</div>
+{% endfor %} {% endblock content %}

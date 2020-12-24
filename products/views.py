@@ -4,13 +4,12 @@ from django.shortcuts import render
 from .models import Product
 
 # Create your views here.
+
 def home_view(request):
-    return HttpResponse("<h1>This is your home view</h1>")
-
-
-# class HomeView():
-#     pass
-
+    context={
+        "name":"Mahdi"
+    }
+    return render(request,template_name="home.html",context=context)
 
 
 def product_detail_view(request,pk):
@@ -19,8 +18,23 @@ def product_detail_view(request,pk):
     except Product.DoesNotExist:
         raise Http404
 
-    return HttpResponse(f"Product id: {product.id} Product Title: {product.title}")
+    context={
+        "product":product,
+    }
 
+    return render(request,"products/detail.html",context)
+
+def products_list_view (request):
+    try:
+        products=Product.objects.all()
+    except:
+        raise Http404
+
+    context={
+        "products":products,
+    }
+
+    return render(request,"products/list.html",context)
 
 
 def product_api_detail_view(request,pk):
