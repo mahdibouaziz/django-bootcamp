@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     'profiles.apps.ProfilesConfig',
     'products.apps.ProductsConfig',
+    'accounts.apps.AccountsConfig',
     'testingmodelfrom.apps.TestingmodelfromConfig',
     
 
@@ -104,6 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGIN_URL="/login"
+LOGIN_REDIRECT_URL="/"
 
 
 # Internationalization

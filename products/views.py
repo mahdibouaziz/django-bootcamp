@@ -1,5 +1,6 @@
 from django.http import HttpResponse,JsonResponse, Http404
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 
 from .forms import ProductForm
 from .models import Product
@@ -44,7 +45,7 @@ def get_name(request):
         #we can get the data now
 
         #don't forget we have a "cleaned_data" attribute
-        name=form.cleaned_data.get("your_name")
+        name= form.cleaned_data.get("your_name")
         print(f"Your name is {name}")
         #do what you want with the name ....
         #we use get in the dictionary because if the attribute doesn't exist it will just escape it
@@ -97,6 +98,7 @@ def search_view(request):
 #     context={}
 #     return render(request,template_name="products/forms.html",context=context)
 
+@login_required
 def product_create_view(request):
 
     form=ProductForm(request.POST or None)
@@ -106,6 +108,7 @@ def product_create_view(request):
         obj=form.save(commit=False)
         #Do some stuff with the cleaned object before saving to the DB
         #by default commit=True if you put it it will directly save it to the database
+        obj.user=request.user
         obj.save()
 
 
